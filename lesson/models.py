@@ -6,6 +6,8 @@ class Lesson(models.Model):
     description = models.TextField(verbose_name='description')
     image = models.ImageField(verbose_name='image', null=True)
     link = models.URLField(verbose_name='link', null=True)
+    course = models.ForeignKey('course.Course', on_delete=models.CASCADE)
+
 
     class Meta:
         verbose_name = 'Урок'
