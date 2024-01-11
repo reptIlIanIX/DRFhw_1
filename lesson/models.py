@@ -9,7 +9,7 @@ class Lesson(models.Model):
     image = models.ImageField(verbose_name='image', null=True)
     link = models.URLField(verbose_name='link', null=True)
     course = models.ForeignKey('course.Course', on_delete=models.CASCADE)
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=4)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=1)
 
     class Meta:
         verbose_name = 'Урок'

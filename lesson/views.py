@@ -1,6 +1,6 @@
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.generics import RetrieveAPIView, DestroyAPIView, ListAPIView, UpdateAPIView, CreateAPIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from lesson.models import Lesson
 from lesson.permissions import IsModerator, IsOwner
@@ -42,4 +42,4 @@ class LessonUpdateView(UpdateAPIView):
 class LessonCreateView(CreateAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
