@@ -3,6 +3,7 @@ from rest_framework.generics import RetrieveAPIView, DestroyAPIView, ListAPIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from lesson.models import Lesson
+from lesson.paginators import LessonPagination
 from lesson.permissions import IsModerator, IsOwner
 from lesson.serializers import LessonSerializer
 
@@ -23,6 +24,7 @@ class LessonListView(ListAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [IsAuthenticated]
+    pagination_class = LessonPagination
 
     def get_queryset(self):
         if not self.request.user.is_staff:
