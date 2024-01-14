@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'course',
     'payment',
     'django_filters',
+    'subscription',
 ]
 
 SIMPLE_JWT = {
