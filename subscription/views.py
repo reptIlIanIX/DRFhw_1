@@ -11,6 +11,8 @@ from subscription.serializers import SubscriptionSerializer
 class SubscriptionCreateAPIView(generics.CreateAPIView):
     quaryset = Subscription.objects.all()
     serializer_class = SubscriptionSerializer
+    permission_classes = [IsAuthenticated]
+
 
     def perform_create(self, serializer, *args, **kwargs):
         subscription = serializer.save()  # получаю подписку

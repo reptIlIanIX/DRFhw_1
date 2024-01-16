@@ -29,8 +29,6 @@ class LessonTestCase(APITestCase):
 
         self.course = Course.objects.create(
             name='test_course',
-            description='test'
-
         )
 
         self.lesson = Lesson.objects.create(
@@ -40,34 +38,39 @@ class LessonTestCase(APITestCase):
             course=self.course
         )
 
-    # def test_get_list(self):
-    #         """Test for getting list of lessons"""
-    #
-    #         response = self.client.get(
-    #             reverse('lesson:lesson-list')
-    #         )
-    #
-    #         self.assertEqual(
-    #             response.status_code,
-    #             status.HTTP_200_OK
-    #         )
-    #
-    #         self.assertEqual(
-    #             response.json(),
-    #             {"count": 2, "next": None, "previous": None, "results": [
-    #                 {"id": 5, "name": "colonial history", "description": "to know your country", "image": None,
-    #                  "link": None, "course": 12, "owner": 1},
-    #                 {"id": 6, "name": "ethnic cuisine", "description": "to know your country", "image": None, "link": None,
-    #                  "course": 13, "owner": 1}]}
-    #
-    #         )
+    def test_get_list(self):
+            """Test for getting list of lessons"""
+
+            response = self.client.get(
+                reverse('lesson:lesson-list')
+            )
+
+            self.assertEqual(
+                response.status_code,
+                status.HTTP_200_OK
+            )
+
+            self.assertEqual(
+                response.json(),
+                {'count': 1,
+                 'next': None,
+                 'previous': None,
+                 'results': [{'course': 1,
+                              'description': 'test',
+                              'id': 1,
+                              'image': None,
+                              'link': None,
+                              'name': 'test',
+                              'owner': 1}]})
+
+
     def test_lesson_create(self):
             """Test lesson creating"""
 
             data = {
                 "name": "test",
                 "description": "test",
-                "course": self.course,
+                "course": self.course.id,
             }
 
             response = self.client.post(
@@ -75,6 +78,7 @@ class LessonTestCase(APITestCase):
                 data=data
             )
             print(response)
+            print(response.data)
 
             self.assertEqual(
                 response.status_code,
@@ -85,3 +89,7 @@ class LessonTestCase(APITestCase):
                 Lesson.objects.all().count(),
                 2
             )
+
+
+
+
