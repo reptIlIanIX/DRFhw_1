@@ -29,67 +29,64 @@ class LessonTestCase(APITestCase):
 
         self.course = Course.objects.create(
             name='test_course',
+            owner=self.user
         )
 
         self.lesson = Lesson.objects.create(
             name='test',
             description="test",
-
+            owner=self.user,
             course=self.course
         )
 
     def test_get_list(self):
-            """Test for getting list of lessons"""
+        """Test for getting list of lessons"""
 
-            response = self.client.get(
-                reverse('lesson:lesson-list')
-            )
+        response = self.client.get(
+            reverse('lesson:lesson-list')
+        )
 
-            self.assertEqual(
-                response.status_code,
-                status.HTTP_200_OK
-            )
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_200_OK
+        )
 
-            self.assertEqual(
-                response.json(),
-                {'count': 1,
-                 'next': None,
-                 'previous': None,
-                 'results': [{'course': 1,
-                              'description': 'test',
-                              'id': 1,
-                              'image': None,
-                              'link': None,
-                              'name': 'test',
-                              'owner': 1}]})
-
+        self.assertEqual(
+            response.json(),
+            {'count': 1,
+             'next': None,
+             'previous': None,
+             'results': [{'course': 1,
+                          'description': 'test',
+                          'id': 1,
+                          'image': None,
+                          'link': None,
+                          'name': 'test',
+                          'owner': 1}]})
 
     def test_lesson_create(self):
-            """Test lesson creating"""
+        """Test lesson creating"""
 
-            data = {
-                "name": "test",
-                "description": "test",
-                "course": self.course.id,
-            }
+        data = {
+            "name": "test",
+            "description": "test",
+            "course": self.course.id,
+            "owner": self.user.id
+        }
 
-            response = self.client.post(
-                reverse('lesson:lesson-create'),
-                data=data
-            )
-            print(response)
-            print(response.data)
+        response = self.client.post(
+            reverse('lesson:lesson-create'),
+            data=data
+        )
+        print(response)
+        print(response.data)
 
-            self.assertEqual(
-                response.status_code,
-                status.HTTP_201_CREATED
-            )
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_201_CREATED
+        )
 
-            self.assertEqual(
-                Lesson.objects.all().count(),
-                2
-            )
-
-
-
-
+        self.assertEqual(
+            Lesson.objects.all().count(),
+            2
+        )
