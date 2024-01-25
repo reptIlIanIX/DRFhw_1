@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'users',
+    'celery',
     'lesson',
     'course',
     'payment',
@@ -95,9 +96,10 @@ WSGI_APPLICATION = 'DRFhw_1.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'project_4',
+        'NAME': 'shelterdocker',
         'USER': "postgres",
-        "PASSWORD": '1234',
+        "PASSWORD": 'mysecretpassword',
+        'HOST': 'db'
     }
 }
 
