@@ -32,10 +32,22 @@ services:
     depends_on:
       db:
         condition: service_healthy
+
   celery:
     build: .
     tty: true
     command: celery -A DRFhw_1 worker -l INFO
+    volumes:
+      - .:/code
+    depends_on:
+      - redis
+      - app
+  celery_beat:
+    build: .
+    tty: true
+    command: celery -A DRFhw_1 beat -l INFO -S django
+    volumes:
+      - .:/code
     depends_on:
       - redis
       - app

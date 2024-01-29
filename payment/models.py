@@ -17,4 +17,4 @@ class Payment(models.Model):
     lesson = models.ForeignKey('lesson.Lesson', on_delete=models.CASCADE, blank=True, null=True)
     course = models.ForeignKey('course.Course', on_delete=models.CASCADE, blank=True, null=True)
     amount = models.IntegerField(verbose_name='amount')
-    method = models.CharField(choices=PAY_TYPES, default=PAY_CASH, verbose_name='method')
+    method = models.CharField(max_length=200, choices=PAY_TYPES, default=PAY_CASH, verbose_name='method')
