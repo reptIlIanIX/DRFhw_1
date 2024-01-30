@@ -8,9 +8,11 @@ services:
 
   db:
     image: postgres
+    env_file:
+      - .env.example
     environment:
-      - POSTGRES_PASSWORD=mysecretpassword
-      - PGDATA=/var/lib/postgresql/data/pgdata
+      - POSTGRES_PASSWORD=os.getenv('POSTGRES_PASSWORD')
+      - PGDATA=os.getenv('PG_DATA')
     volumes:
       - pg_data:/var/lib/postgresql/data/pgdata
     ports:
